@@ -33,12 +33,21 @@ const Index = () => {
         <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
           আপনার যাত্রা শুরু করতে নীচের বাটনে ক্লিক করুন
         </p>
-        <Button 
-          onClick={() => navigate("/get-started")}
-          className="text-lg px-8 py-6 rounded-full touch-manipulation"
-        >
-          শুরু করুন
-        </Button>
+        <div className="space-x-4">
+          <Button 
+            onClick={() => navigate("/auth/login")}
+            className="text-lg px-8 py-6 rounded-full touch-manipulation"
+          >
+            লগইন করুন
+          </Button>
+          <Button 
+            onClick={() => navigate("/auth/register")}
+            variant="outline"
+            className="text-lg px-8 py-6 rounded-full touch-manipulation"
+          >
+            রেজিস্টার করুন
+          </Button>
+        </div>
       </div>
     </div>
   );
