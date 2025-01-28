@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { motion } from "framer-motion";
+import { Lock } from "lucide-react";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -58,17 +59,22 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-background to-secondary/20 p-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
         className="w-full max-w-md"
       >
-        <Card className="border-none shadow-lg">
-          <CardHeader className="space-y-1 text-center">
-            <CardTitle className="text-2xl">লগইন করুন</CardTitle>
-            <CardDescription>
+        <Card className="border-none shadow-xl bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+          <CardHeader className="space-y-1 text-center pb-8">
+            <div className="flex justify-center mb-4">
+              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+                <Lock className="h-6 w-6 text-primary" />
+              </div>
+            </div>
+            <CardTitle className="text-2xl font-bold">লগইন করুন</CardTitle>
+            <CardDescription className="text-muted-foreground">
               আপনার অ্যাকাউন্টে প্রবেশ করুন
             </CardDescription>
           </CardHeader>
@@ -81,7 +87,7 @@ const Login = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full"
+                  className="h-11"
                 />
                 <Input
                   type="password"
@@ -89,19 +95,19 @@ const Login = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="w-full"
+                  className="h-11"
                 />
               </div>
 
               <Button
                 type="submit"
-                className="w-full py-5 text-base font-medium transition-all duration-200 hover:opacity-90"
+                className="w-full h-11 text-base font-medium transition-all duration-200 hover:opacity-90"
                 disabled={loading}
               >
                 {loading ? "লোড হচ্ছে..." : "লগইন"}
               </Button>
 
-              <div className="relative my-4">
+              <div className="relative my-6">
                 <div className="absolute inset-0 flex items-center">
                   <Separator className="w-full" />
                 </div>
@@ -115,7 +121,7 @@ const Login = () => {
               <Button
                 type="button"
                 variant="outline"
-                className="w-full py-5 text-base font-medium"
+                className="w-full h-11 text-base font-medium"
                 onClick={handleGoogleLogin}
               >
                 <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
@@ -139,23 +145,26 @@ const Login = () => {
                 গুগল দিয়ে লগইন করুন
               </Button>
 
-              <div className="text-center text-sm text-muted-foreground mt-6">
-                অ্যাকাউন্ট নেই?{" "}
-                <Button
-                  variant="link"
-                  onClick={() => navigate("/auth/register")}
-                  className="p-0 h-auto font-normal text-sm"
-                >
-                  রেজিস্টার করুন
-                </Button>
-                <span className="mx-2">•</span>
-                <Button
-                  variant="link"
-                  onClick={() => navigate("/auth/forgot-password")}
-                  className="p-0 h-auto font-normal text-sm"
-                >
-                  পাসওয়ার্ড ভুলে গেছেন?
-                </Button>
+              <div className="text-center text-sm text-muted-foreground mt-6 space-y-2">
+                <div>
+                  অ্যাকাউন্ট নেই?{" "}
+                  <Button
+                    variant="link"
+                    onClick={() => navigate("/auth/register")}
+                    className="p-0 h-auto font-normal text-sm"
+                  >
+                    রেজিস্টার করুন
+                  </Button>
+                </div>
+                <div>
+                  <Button
+                    variant="link"
+                    onClick={() => navigate("/auth/forgot-password")}
+                    className="p-0 h-auto font-normal text-sm"
+                  >
+                    পাসওয়ার্ড ভুলে গেছেন?
+                  </Button>
+                </div>
               </div>
             </form>
           </CardContent>

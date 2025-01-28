@@ -42,10 +42,22 @@ const queryClient = new QueryClient();
 // Wrapper component to conditionally render sidebar
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
-  const isIndex = location.pathname === "/";
+  const path = location.pathname;
+  
+  // Don't show sidebar on index, auth pages, and dashboards
+  const noSidebarPaths = [
+    '/', 
+    '/auth/login',
+    '/auth/register',
+    '/auth/forgot-password',
+    '/user/dashboard',
+    '/admin/dashboard'
+  ];
+  
+  const showSidebar = !noSidebarPaths.includes(path);
 
-  if (isIndex) {
-    return <>{children}</>;
+  if (!showSidebar) {
+    return <main className="max-w-[1280px] mx-auto p-4">{children}</main>;
   }
 
   return (

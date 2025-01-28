@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { motion } from "framer-motion";
+import { UserPlus } from "lucide-react";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -65,17 +66,22 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-background to-secondary/20 p-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
         className="w-full max-w-md"
       >
-        <Card className="border-none shadow-lg">
-          <CardHeader className="space-y-1 text-center">
-            <CardTitle className="text-2xl">রেজিস্টার করুন</CardTitle>
-            <CardDescription>
+        <Card className="border-none shadow-xl bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+          <CardHeader className="space-y-1 text-center pb-8">
+            <div className="flex justify-center mb-4">
+              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+                <UserPlus className="h-6 w-6 text-primary" />
+              </div>
+            </div>
+            <CardTitle className="text-2xl font-bold">রেজিস্টার করুন</CardTitle>
+            <CardDescription className="text-muted-foreground">
               নতুন অ্যাকাউন্ট তৈরি করুন
             </CardDescription>
           </CardHeader>
@@ -88,7 +94,7 @@ const Register = () => {
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   required
-                  className="w-full"
+                  className="h-11"
                 />
                 <Input
                   type="text"
@@ -96,7 +102,7 @@ const Register = () => {
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   required
-                  className="w-full"
+                  className="h-11"
                 />
                 <Input
                   type="email"
@@ -104,7 +110,7 @@ const Register = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full"
+                  className="h-11"
                 />
                 <Input
                   type="password"
@@ -112,19 +118,19 @@ const Register = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="w-full"
+                  className="h-11"
                 />
               </div>
 
               <Button
                 type="submit"
-                className="w-full py-5 text-base font-medium transition-all duration-200 hover:opacity-90"
+                className="w-full h-11 text-base font-medium transition-all duration-200 hover:opacity-90"
                 disabled={loading}
               >
                 {loading ? "লোড হচ্ছে..." : "রেজিস্টার"}
               </Button>
 
-              <div className="relative my-4">
+              <div className="relative my-6">
                 <div className="absolute inset-0 flex items-center">
                   <Separator className="w-full" />
                 </div>
@@ -138,7 +144,7 @@ const Register = () => {
               <Button
                 type="button"
                 variant="outline"
-                className="w-full py-5 text-base font-medium"
+                className="w-full h-11 text-base font-medium"
                 onClick={handleGoogleLogin}
               >
                 <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
