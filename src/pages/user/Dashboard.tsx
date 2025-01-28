@@ -1,11 +1,23 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Grid } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 const UserDashboard = () => {
   const navigate = useNavigate();
+
+  const menuItems = [
+    { title: "ড্যাশবোর্ড", url: "/user/dashboard" },
+    { title: "সেটিংস", url: "/user/settings" },
+    { title: "বিলিং", url: "/user/billing" },
+    { title: "পরিসংখ্যান", url: "/user/stats" },
+    { title: "এপিআই কী", url: "/user/api-keys" },
+    { title: "টিম", url: "/user/team" },
+  ];
 
   useEffect(() => {
     checkUser();
@@ -43,8 +55,18 @@ const UserDashboard = () => {
           <h1 className="text-2xl font-bold">ইউজার ড্যাশবোর্ড</h1>
           <Button onClick={handleLogout}>লগআউট</Button>
         </div>
-        <div className="bg-card rounded-lg p-6 shadow-sm">
-          <p className="text-lg">স্বাগতম! আপনার ড্যাশবোর্ডে</p>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {menuItems.map((item) => (
+            <Link to={item.url} key={item.title}>
+              <Card className="hover:bg-accent transition-colors cursor-pointer">
+                <CardContent className="flex items-center gap-3 p-6">
+                  <Grid className="h-5 w-5" />
+                  <span className="text-lg">{item.title}</span>
+                </CardContent>
+              </Card>
+            </Link>
+          ))}
         </div>
       </div>
     </div>
