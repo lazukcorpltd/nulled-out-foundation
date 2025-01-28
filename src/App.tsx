@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/layout/Sidebar";
 
@@ -39,23 +39,41 @@ import NotFound from "./pages/error/NotFound";
 
 const queryClient = new QueryClient();
 
+// Wrapper component to conditionally render sidebar
+const Layout = ({ children }: { children: React.ReactNode }) => {
+  const location = useLocation();
+  const isIndex = location.pathname === "/";
+
+  if (isIndex) {
+    return <>{children}</>;
+  }
+
+  return (
+    <SidebarProvider>
+      <div className="min-h-screen flex w-full">
+        <AppSidebar />
+        <main className="flex-1 max-w-[1280px] mx-auto p-4">
+          {children}
+        </main>
+      </div>
+    </SidebarProvider>
+  );
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <SidebarProvider>
-          <div className="min-h-screen flex w-full">
-            <AppSidebar />
-            <main className="flex-1 max-w-[1280px] mx-auto p-4">
-              <Routes>
-                {/* Public Routes */}
-                <Route path="/" element={<Index />} />
-                <Route path="/blog" element={<Blog />} />
-                <Route path="/docs" element={<Documentation />} />
-                <Route path="/legal/terms" element={<Terms />} />
-                <Route path="/legal/privacy" element={<Privacy />} />
+        <Layout>
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={<Index />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/docs" element={<Documentation />} />
+            <Route path="/legal/terms" element={<Terms />} />
+            <Route path="/legal/privacy" element={<Privacy />} />
 
                 {/* Auth Routes */}
                 <Route path="/auth/login" element={<Login />} />
@@ -80,10 +98,8 @@ const App = () => (
 
                 {/* Error Routes */}
                 <Route path="*" element={<NotFound />} />
-              </Routes>
-            </main>
-          </div>
-        </SidebarProvider>
+          </Routes>
+        </Layout>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
